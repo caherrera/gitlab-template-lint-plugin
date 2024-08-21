@@ -54,13 +54,16 @@ class AppSettings : PersistentStateComponent<AppSettings> {
 
 
     fun saveGitlabToken(gitlabToken: GitlabUrlToken) {
-        logger.debug("Saving token for ${gitlabToken}")
-        PasswordSafe.instance.setPassword(getCredentialAttributes(gitlabToken.gitlabAlias), gitlabToken.gitlabToken)
+        logger.info("Saving token for ${gitlabToken}")
+        val credentialAttributes = getCredentialAttributes(gitlabToken.gitlabAlias)
+        logger.info(" >>> ${credentialAttributes}")
+        PasswordSafe.instance.setPassword(credentialAttributes, gitlabToken.gitlabToken)
     }
 
     suspend fun getGitlabToken(gitlabAlias: String): String? {
-        logger.debug("Getting token for ${gitlabAlias}")
+        logger.info("Getting token for ${gitlabAlias}")
         val credentialAttributes = getCredentialAttributes(gitlabAlias)
+        logger.info(" >>> ${credentialAttributes}")
 
         val credentials: Credentials? = withContext(Dispatchers.IO) {
             return@withContext PasswordSafe.instance.get(credentialAttributes)
@@ -75,12 +78,15 @@ class AppSettings : PersistentStateComponent<AppSettings> {
     }
 
     private fun getCredentialAttributes(title: String): CredentialAttributes {
-        return CredentialAttributes(
+        logger.info("Getting credential attributes for ${title}")
+        val c = CredentialAttributes(
             title,
             null,
             this.javaClass,
             false
         )
+        logger.info("Credential :: ${c}")
+        return c;
     }
 
     @Nullable

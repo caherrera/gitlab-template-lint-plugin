@@ -6,7 +6,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class GitlabUrlToken(
   var gitlabAlias: String = "",
-  var gitlabUrl: String = "https://gitlab.com",
+  var gitlabUrl: String = "",
   var gitlabToken: String? = null,
 ) {
     override fun equals(other: Any?): Boolean {
@@ -18,6 +18,6 @@ data class GitlabUrlToken(
     }
 
     override fun hashCode(): Int {
-        return gitlabUrl.hashCode()
+        return gitlabAlias.hashCode()
     }
 }

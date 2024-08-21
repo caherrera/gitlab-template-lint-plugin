@@ -5,6 +5,8 @@ import com.intellij.openapi.components.PersistentStateComponent
 import com.intellij.openapi.components.Service
 import com.intellij.openapi.components.State
 import com.intellij.openapi.components.Storage
+import com.intellij.openapi.diagnostic.Logger
+import com.intellij.openapi.diagnostic.logger
 import com.intellij.util.xmlb.XmlSerializerUtil
 import com.intellij.util.xmlb.annotations.Transient
 import kotlinx.coroutines.CoroutineScope
@@ -39,6 +41,8 @@ class ProjectSettings : PersistentStateComponent<ProjectSettings?> {
     @get:Transient
     var gitlabUrlTokens: List<GitlabUrlToken> = listOf()
 
+    private var logger = Logger.getInstance(ProjectSettings::class.java)
+
     override fun getState() = this
 
     override fun loadState(@NotNull state: ProjectSettings) {
@@ -49,6 +53,7 @@ class ProjectSettings : PersistentStateComponent<ProjectSettings?> {
         CoroutineScope(Dispatchers.IO).launch {
             gitlabUrlTokens =
                 gitlabUrls.map {
+                    logger.info("Loading token for ${it}")
                     GitlabUrlToken(it, "", AppSettings.instance.getGitlabToken(it))
                 }
         }
