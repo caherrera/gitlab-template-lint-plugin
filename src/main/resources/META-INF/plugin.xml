@@ -1,14 +1,14 @@
 <!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
 <idea-plugin require-restart="false">
     <!-- Unique identifier of the plugin. It should be FQN. It cannot be changed between the plugin versions. -->
-    <id>com.github.blarc.gitlab-template-lint-plugin</id>
+    <id>com.github.caherrera.gitlab-template-lint-plugin</id>
 
     <!-- Public plugin name should be written in Title Case.
          Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-name -->
     <name>Gitlab Template Lint</name>
 
     <!-- A displayed Vendor name or Organization ID displayed on the Plugins Page. -->
-    <vendor email="" url="https://github.com/Blarc">Blarc</vendor>
+    <vendor email="" url="https://github.com/caherrera">Carlos Herrera</vendor>
 
     <!-- Description of the plugin displayed on the Plugin Page and IDE Plugin Manager.
          Simple HTML elements (text formatting, paragraphs, and lists) can be added inside of <![CDATA[ ]]> tag.
@@ -50,16 +50,16 @@
 
     <applicationListeners>
         <listener
-                class="com.github.blarc.gitlab.template.lint.plugin.listeners.FileListener"
+                class="com.github.caherrera.gitlab.template.lint.plugin.listeners.FileListener"
                 topic="com.intellij.openapi.fileEditor.FileEditorManagerListener"
         />
     </applicationListeners>
 
     <projectListeners>
-        <listener class="com.github.blarc.gitlab.template.lint.plugin.listeners.VcsMappingChangedListener"
+        <listener class="com.github.caherrera.gitlab.template.lint.plugin.listeners.VcsMappingChangedListener"
                   topic="com.intellij.dvcs.repo.VcsRepositoryMappingListener"/>
 
-        <listener class="com.github.blarc.gitlab.template.lint.plugin.listeners.SaveActionListener"
+        <listener class="com.github.caherrera.gitlab.template.lint.plugin.listeners.SaveActionListener"
                   topic="com.intellij.openapi.fileEditor.FileDocumentManagerListener"/>
     </projectListeners>
 
@@ -72,50 +72,50 @@
 
         <fileType
                 name="Gitlab Yaml"
-                implementationClass="com.github.blarc.gitlab.template.lint.plugin.language.GitlabYamlFileType"
+                implementationClass="com.github.caherrera.gitlab.template.lint.plugin.language.GitlabYamlFileType"
                 patterns="*.gitlab-ci.yml;*.gitlab-ci.yaml"
                 order="first"
                 fileNames=".gitlab-ci.yml;.gitlab-ci.yaml"
         />
 
         <fileTypeOverrider
-                implementation="com.github.blarc.gitlab.template.lint.plugin.language.GitlabYamlFileTypeOverrider"
+                implementation="com.github.caherrera.gitlab.template.lint.plugin.language.GitlabYamlFileTypeOverrider"
                 order="last"
         />
 
         <applicationService
-                serviceImplementation="com.github.blarc.gitlab.template.lint.plugin.settings.AppSettings"/>
+                serviceImplementation="com.github.caherrera.gitlab.template.lint.plugin.settings.AppSettings"/>
 
         <!--        <projectConfigurable-->
         <!--                parentId="tools"-->
-        <!--                instance="com.github.blarc.gitlab.template.lint.plugin.ui.settings.ProjectSettingsConfigurable"-->
+        <!--                instance="com.github.caherrera.gitlab.template.lint.plugin.ui.settings.ProjectSettingsConfigurable"-->
         <!--                id="GitlabLint.ProjectSettings"-->
         <!--        />-->
 
 
         <projectConfigurable
                 parentId="tools"
-                instance="com.github.blarc.gitlab.template.lint.plugin.settings.configurables.SettingsConfigurable"
-                id="com.github.blarc.gitlab.template.lint.plugin.settings.configurables.SettingsConfigurable"
+                instance="com.github.caherrera.gitlab.template.lint.plugin.settings.configurables.SettingsConfigurable"
+                id="com.github.caherrera.gitlab.template.lint.plugin.settings.configurables.SettingsConfigurable"
                 key="settings.general.group.title"/>
 
 
         <projectConfigurable
-                parentId="com.github.blarc.gitlab.template.lint.plugin.settings.configurables.SettingsConfigurable"
-                instance="com.github.blarc.gitlab.template.lint.plugin.settings.remote.RemotesConfigurable"
-                id="com.github.blarc.gitlab.template.lint.plugin.settings.remote.RemotesConfigurable"
+                parentId="com.github.caherrera.gitlab.template.lint.plugin.settings.configurables.SettingsConfigurable"
+                instance="com.github.caherrera.gitlab.template.lint.plugin.settings.remote.RemotesConfigurable"
+                id="com.github.caherrera.gitlab.template.lint.plugin.settings.remote.RemotesConfigurable"
                 key="settings.remotes.group.title" />
 
         <projectConfigurable
-                parentId="com.github.blarc.gitlab.template.lint.plugin.settings.configurables.SettingsConfigurable"
-                instance="com.github.blarc.gitlab.template.lint.plugin.settings.ignoredErrors.IgnoredErrorsConfigurable"
-                id="com.github.blarc.gitlab.template.lint.plugin.settings.ignoredErrors.IgnoredErrorsConfigurable"
+                parentId="com.github.caherrera.gitlab.template.lint.plugin.settings.configurables.SettingsConfigurable"
+                instance="com.github.caherrera.gitlab.template.lint.plugin.settings.ignoredErrors.IgnoredErrorsConfigurable"
+                id="com.github.caherrera.gitlab.template.lint.plugin.settings.ignoredErrors.IgnoredErrorsConfigurable"
                 key="settings.ignored-errors.group.title" />
 
         <applicationConfigurable
-            parentId="com.github.blarc.gitlab.template.lint.plugin.settings.configurables.SettingsConfigurable"
-            instance="com.github.blarc.gitlab.template.lint.plugin.settings.configurables.GlobsConfigurable"
-            id="com.github.blarc.gitlab.template.lint.plugin.settings.configurables.GlobsConfigurable"
+            parentId="com.github.caherrera.gitlab.template.lint.plugin.settings.configurables.SettingsConfigurable"
+            instance="com.github.caherrera.gitlab.template.lint.plugin.settings.configurables.GlobsConfigurable"
+            id="com.github.caherrera.gitlab.template.lint.plugin.settings.configurables.GlobsConfigurable"
             key="settings.globs.group.title" />
 
 
@@ -125,18 +125,18 @@
                 groupBundle="messages.InspectionsBundle"
                 groupKey="group.names.probable.bugs"
                 enabledByDefault="true"
-                implementationClass="com.github.blarc.gitlab.template.lint.plugin.inspections.GitlabLintInspection"
+                implementationClass="com.github.caherrera.gitlab.template.lint.plugin.inspections.GitlabLintInspection"
                 displayName="Linting"
                 shortName="GitlabLint"
                 runForWholeFile="true"/>
 
         <editorNotificationProvider
-                implementation="com.github.blarc.gitlab.template.lint.plugin.providers.LintNotificationProvider"
+                implementation="com.github.caherrera.gitlab.template.lint.plugin.providers.LintNotificationProvider"
                 id="GitlabLint.LintNotificationProvider"/>
         />
 
         <postStartupActivity
-                implementation="com.github.blarc.gitlab.template.lint.plugin.listeners.ApplicationStartupListener"/>
+                implementation="com.github.caherrera.gitlab.template.lint.plugin.listeners.ApplicationStartupListener"/>
 
         <notificationGroup
                 id="gitlab.lint.notification.general"
@@ -152,13 +152,13 @@
 
         <statusBarWidgetFactory
                 id="lintStatusWidget"
-                implementation="com.github.blarc.gitlab.template.lint.plugin.widget.LintStatusWidgetFactory"
+                implementation="com.github.caherrera.gitlab.template.lint.plugin.widget.LintStatusWidgetFactory"
                 order="first"
         />
 
         <fileEditorProvider
                 id="gitlabLintEditorProvider"
-                implementation="com.github.blarc.gitlab.template.lint.plugin.providers.GitlabLintEditorProvider"
+                implementation="com.github.caherrera.gitlab.template.lint.plugin.providers.GitlabLintEditorProvider"
                 order="first"
         />
 
@@ -166,13 +166,13 @@
 
     <actions>
         <action
-                id="com.github.blarc.gitlab.template.lint.plugin.widget.actions.RefreshAction"
-                class="com.github.blarc.gitlab.template.lint.plugin.widget.actions.RefreshAction"
+                id="com.github.caherrera.gitlab.template.lint.plugin.widget.actions.RefreshAction"
+                class="com.github.caherrera.gitlab.template.lint.plugin.widget.actions.RefreshAction"
                 text="RefreshAction"
         />
-        <action id="com.github.blarc.gitlab.template.lint.plugin.GitlabLintAction"
-                class="com.github.blarc.gitlab.template.lint.plugin.GitlabLintAction"
-                icon="com.github.blarc.gitlab.template.lint.plugin.Icons.GITLAB_LOGO"
+        <action id="com.github.caherrera.gitlab.template.lint.plugin.GitlabLintAction"
+                class="com.github.caherrera.gitlab.template.lint.plugin.GitlabLintAction"
+                icon="com.github.caherrera.gitlab.template.lint.plugin.Icons.GITLAB_LOGO"
                 text="Run Gitlab Lint..."
         >
             <add-to-group group-id="EditorPopupMenu"/>
